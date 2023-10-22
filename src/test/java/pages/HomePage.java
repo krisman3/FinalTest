@@ -9,12 +9,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class HomePage {
+public class HomePage extends HeaderPage {
     WebDriver driver = new ChromeDriver();
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-    @FindBy(id="nav-link-home") WebElement homeButton;
-    @FindBy(id="nav-link-login") WebElement loginButton;
-    @FindBy(id="homeIcon") WebElement homeIcon;
+    String URL = "http://training.skillo-bg.com:4200";
+    String HOME_URL = URL + "/posts/all";
+    String LOGIN_URL = URL + "/users/login";
+    String REG_URL = URL + "/users/register";
+
 
 
     public void clickButton(WebElement element){

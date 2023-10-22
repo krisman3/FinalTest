@@ -3,15 +3,24 @@ package tests;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.devtools.v85.page.Page;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.HomePage;
 
+import java.net.URL;
 import java.time.Duration;
 
 public class LoginTest {
     WebDriver driver;
+    private final String  URL = "http://training.skillo-bg.com:4200";
+    private final String HOME_URL = URL + "/posts/all";
+    private final String LOGIN_URL = URL + "/users/login";
+    private final String REG_URL = URL + "/users/register";
 
     @BeforeMethod
     public void setUp(){
@@ -23,7 +32,7 @@ public class LoginTest {
 
     @Test
     public void loginTest(){
-
+    driver.get(URL);
     }
 
     @AfterMethod

@@ -1,17 +1,28 @@
 package pages;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-public class LoginPage extends HomePage{
+import java.time.Duration;
 
-    @FindBy(css = "[formcontrolname='usernameOrEmail']") WebElement usernameField;
-    @FindBy(css = "[formcontrolname='password']") WebElement passwordField;
-    @FindBy(id = "sign-in-button") WebElement signInBtn;
-    @FindBy(css = "a[href='/users/register']") WebElement registerBtn;
-    @FindBy(css = "[formcontrolname='rememberMe']") WebElement rememberMeBtn;
+public class LoginPage extends HomePage{
+    private WebDriver driver;
+    private WebDriverWait wait;
+    public LoginPage (WebDriver driver) {
+        this.driver = driver;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        PageFactory.initElements(driver, this);
+    }
+    @FindBy(css = "[formcontrolname='usernameOrEmail']") private WebElement usernameField;
+    @FindBy(css = "[formcontrolname='password']") private WebElement passwordField;
+    @FindBy(id = "sign-in-button") private WebElement signInBtn;
+    @FindBy(css = "a[href='/users/register']") private WebElement registerBtn;
+    @FindBy(css = "[formcontrolname='rememberMe']") private WebElement rememberMeBtn;
 
 public void waitForVisibility(WebElement element){
     wait.until(ExpectedConditions.visibilityOf(element));
@@ -21,11 +32,14 @@ public void populateField(WebElement element, String content){
     wait.until(ExpectedConditions.elementToBeClickable(element));
     element.click();
     element.sendKeys(content);
-
 }
-public void checkURL(){
+    public void clickElement(WebElement element){
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+        element.click();
+    }
+public void checkURL(String pageName){
     String currentURL = driver.getCurrentUrl();
-    Assert.assertEquals(currentURL, LOGIN_URL, "The URL is not the same.");
+    Assert.assertEquals(currentURL, pageName, "The URL is not the same.");
 }
 }
 

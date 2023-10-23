@@ -6,10 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pages.BasePage;
 import pages.PageNames;
 import pages.RegisterPage;
@@ -20,21 +17,21 @@ public class RegisterTest {
     WebDriver driver;
     WebDriverWait wait;
 
-//    @DataProvider(name = "invalidEmails")
-//    public Object[][] invalidEmails() {
-//        return new Object[][]{
-//                {"abv@gmail."},
-//                {"abv@"},
-//                {"abv.com.com"},
-//                {"@gmail.com"},
-//                {"abv@gmail,com"},
-//                {"ab,v@gmail.com"},
-//                {"abv@@gmail.com"},
-//                {"abv@gmail..com"},
-//                {"a,bv@gmail.com"},
-//                {"abv@gmail.c/om"}
-//        };
-//    }
+    @DataProvider(name = "invalidEmails")
+    public Object[][] invalidEmails() {
+        return new Object[][]{
+                {"abv@gmail."},
+                {"abv@"},
+                {"abv.com.com"},
+                {"@gmail.com"},
+                {"abv@gmail,com"},
+                {"ab,v@gmail.com"},
+                {"abv@@gmail.com"},
+                {"abv@gmail..com"},
+                {"a,bv@gmail.com"},
+                {"abv@gmail.c/om"}
+        };
+    }
 
     @BeforeMethod
     public void setUp() {
@@ -70,6 +67,30 @@ public class RegisterTest {
         String toastText = registerPage.toastMsgFail.getText();
         Assert.assertEquals(toastText, "Username taken", "The toast message is incorrect.");
     }
+@Test(dataProvider = "invalidEmails")
+public void invalidEmailTest(String email){
+    System.out.println("1. Navigate to the register page.");
+    PageNames pageNames = new PageNames(driver);
+    driver.get(pageNames.REG_URL);
+    System.out.println("2. Check if the URL is correct.");
+    BasePage basePage = new BasePage(driver);
+    basePage.checkURL(pageNames.REG_URL);
+    System.out.println("3. Populate the username field");
+    RegisterPage registerPage = new RegisterPage(driver);
+    basePage.populateField(registerPage.usernameField, "auto_user");
+    System.out.println("4. Populate the email field");
+    basePage.populateField(registerPage.emailField, email);
+    System.out.println("5. Populate the password field");
+    basePage.populateField(registerPage.passwordField, "auto_pass");
+    System.out.println("6. Populate the Confirm password field.");
+    basePage.populateField(registerPage.confirmPassword, "auto_pass");
+    System.out.println("7. Click on Sign In");
+    basePage.clickElement(registerPage.signInBtn);
+    System.out.println("8. Check if the correct error message appears.");
+    basePage.waitForVisibility(registerPage.invalidEmailMsg);
+    String invalidEmailText = registerPage.invalidEmailMsg.getText();
+    Assert.assertEquals(invalidEmailText, "Email invalid!", "There's an issue with the error message.");
+}
 
     @AfterMethod
     public void cleanUp() {

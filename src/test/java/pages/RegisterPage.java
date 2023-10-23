@@ -25,6 +25,8 @@ public class RegisterPage extends BasePage{
     //The error message when an invalid email has been entered.
     @FindBy(xpath = "//span[contains(text(), 'Email invalid')]")
     public WebElement invalidEmailMsg;
+    @FindBy(css = ".toast-message")
+    public WebElement toastMsgFail;
 
     public RegisterPage(WebDriver driver) {
         super(driver);

@@ -1,10 +1,30 @@
 <suite name="MySuite">
-    <test name="MyTest">
-        <parameter name="username" value="Chocho" />
-        <parameter name="password" value="auto_pass" />
-        <parameter name="email" value="chocho@gmail.com" />
+    <test name="RegisterTest">
         <classes>
-            <class name="tests.RegisterTest" />
+            <class name="tests.RegisterTests">
+                <methods>
+                    <include name="usernameExistsTest">
+                        <parameter name="username" value="Chocho"/>
+                        <parameter name="password" value="auto_pass"/>
+                        <parameter name="email" value="chocho@gmail.com"/>
+                    </include>
+                    <include name="invalidEmailTest"/>
+                    <include name="passwordMismatchTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "LoginTest">
+        <classes>
+            <class name="tests.LoginTests">
+                <methods>
+                    <include name="loginTestHappy">
+                        <parameter name="username" value="auto_user"/>
+                        <parameter name="password" value="auto_pass"/>
+                    </include>
+                    <include name="loginTestNegative"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>

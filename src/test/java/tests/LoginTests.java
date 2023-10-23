@@ -3,12 +3,12 @@ package tests;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pages.BasePage;
 import pages.LoginPage;
@@ -17,7 +17,7 @@ import pages.PageNames;
 import java.time.Duration;
 
 
-public class LoginTest {
+public class LoginTests {
     WebDriver driver;
     WebDriverWait wait;
 
@@ -29,9 +29,10 @@ public class LoginTest {
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(3));
     }
-
+@Parameters({"username", "password"})
     @Test
-    public void loginTestHappy() {
+    public void loginTestHappy(String username, String password) {
+    System.out.println("////Login test - Happy path ////\n");
         System.out.println("1. Navigate to home page.");
         PageNames pageNames = new PageNames(driver);
         driver.get(pageNames.HOME_URL);
@@ -45,9 +46,9 @@ public class LoginTest {
         basePage.checkURL(pageNames.LOGIN_URL);
         System.out.println("5. Populate username.");
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.populateField(loginPage.usernameField, "auto_user");
+        loginPage.populateField(loginPage.usernameField, username);
         System.out.println("6. Populate password.");
-        loginPage.populateField(loginPage.passwordField, "auto_pass");
+        loginPage.populateField(loginPage.passwordField, password);
         System.out.println("7. Click Sign in.");
         basePage.clickElement(loginPage.signInBtn);
         System.out.println("8. Check if the login is successful.");
@@ -57,6 +58,7 @@ public class LoginTest {
     }
     @Test
     public void loginTestNegative(){
+        System.out.println("////Login test - Negative path ////\n");
         System.out.println("1. Navigate to home page.");
         PageNames pageNames = new PageNames(driver);
         driver.get(pageNames.HOME_URL);

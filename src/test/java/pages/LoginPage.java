@@ -23,6 +23,8 @@ public class LoginPage extends BasePage{
     public WebElement registerBtn;
     @FindBy(css = "[formcontrolname='rememberMe']")
     public WebElement rememberMeBtn;
+    @FindBy(css = ".toast-message")
+    public WebElement toastMsgEmpty;
 
     public void navigateToLogin(){
 

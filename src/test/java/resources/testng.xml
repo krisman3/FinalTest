@@ -1,8 +1,8 @@
 <suite name="MySuite">
     <test name="MyTest">
-        <parameter name="username" value="yourUsername" />
-        <parameter name="password" value="yourPassword" />
-        <parameter name="email" value="yourEmail" />
+        <parameter name="username" value="Chocho" />
+        <parameter name="password" value="auto_pass" />
+        <parameter name="email" value="chocho@gmail.com" />
         <classes>
             <class name="tests.RegisterTest" />
         </classes>

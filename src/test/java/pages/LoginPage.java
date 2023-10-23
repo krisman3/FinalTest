@@ -14,22 +14,19 @@ public class LoginPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        PageFactory.initElements(driver, this);
-    }
+
 
     @FindBy(css = "[formcontrolname='usernameOrEmail']")
-    private WebElement usernameField;
+    public WebElement usernameField;
+
     @FindBy(css = "[formcontrolname='password']")
-    private WebElement passwordField;
+    public WebElement passwordField;
     @FindBy(id = "sign-in-button")
-    private WebElement signInBtn;
+    public WebElement signInBtn;
     @FindBy(css = "a[href='/users/register']")
-    private WebElement registerBtn;
+    public WebElement registerBtn;
     @FindBy(css = "[formcontrolname='rememberMe']")
-    private WebElement rememberMeBtn;
+    public WebElement rememberMeBtn;
 
     public void waitForVisibility(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
@@ -47,9 +44,21 @@ public class LoginPage {
     }
 
     public void checkURL(String pageName) {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         String currentURL = driver.getCurrentUrl();
         Assert.assertEquals(currentURL, pageName, "The URL is not the same.");
     }
+    public void checkURLtoBe(String pageName){
+        wait.until(ExpectedConditions.urlToBe(pageName));
+        String actualURL = driver.getCurrentUrl();
+        Assert.assertEquals(actualURL, pageName, "The expected URL to be is not the same.");
+    }
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        PageFactory.initElements(driver, this);
+    }
+
 }
 
 

@@ -17,6 +17,7 @@ import java.time.Duration;
 public class RegisterTest {
     WebDriver driver;
     WebDriverWait wait;
+    WebDriverWait wait1;
 
     @DataProvider(name = "invalidEmails")
     public Object[][] invalidEmails() {
@@ -47,10 +48,11 @@ public class RegisterTest {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait1 = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     @Parameters({"username", "password", "email"})
-    @Test(priority = 1)
+    @Test(priority = 2)
     public void usernameExistsTest(String username, String password, String email) {
         try{
         System.out.println("1. Navigate to the register page.");
@@ -68,6 +70,7 @@ public class RegisterTest {
         basePage.populateField(registerPage.passwordField, password);
         System.out.println("6. Populate the Confirm password field.");
         basePage.populateField(registerPage.confirmPassword, password);
+        wait.withMessage("Chocho sushtestvuva ama saita se bavi.");
         System.out.println("7. Click on Sign In");
         basePage.clickElement(registerPage.signInBtn);
         System.out.println("8. Wait for the toast message 'Username taken' to pop up");
@@ -76,7 +79,7 @@ public class RegisterTest {
         String toastText = registerPage.toastMsgFail.getText();
         Assert.assertEquals(toastText, "Username taken", "The toast message is incorrect.");}
         catch(TimeoutException e) {
-            System.out.println("Saita e bugav i ponqkoga se bavi da osuznae dali user-a sushtestvuva.");
+            System.out.println("****! Saita e bugav i ponqkoga se bavi da osuznae dali user-a sushtestvuva. !****");
         }
     }
 
@@ -106,7 +109,7 @@ public class RegisterTest {
     }
 
 
-    @Test(dataProvider = "mismatchingPasswords", priority = 2)
+    @Test(dataProvider = "mismatchingPasswords", priority = 1)
     public void passwordMismatchTest(String password1, String password2) {
         System.out.println("1. Navigate to the register page.");
         PageNames pageNames = new PageNames(driver);

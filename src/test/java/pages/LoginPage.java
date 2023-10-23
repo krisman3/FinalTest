@@ -10,11 +10,7 @@ import org.testng.Assert;
 
 import java.time.Duration;
 
-public class LoginPage {
-    private WebDriver driver;
-    private WebDriverWait wait;
-
-
+public class LoginPage extends BasePage{
 
     @FindBy(css = "[formcontrolname='usernameOrEmail']")
     public WebElement usernameField;
@@ -28,37 +24,14 @@ public class LoginPage {
     @FindBy(css = "[formcontrolname='rememberMe']")
     public WebElement rememberMeBtn;
 
-    public void waitForVisibility(WebElement element) {
-        wait.until(ExpectedConditions.visibilityOf(element));
+    public void navigateToLogin(){
+
     }
 
-    public void populateField(WebElement element, String content) {
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-        element.click();
-        element.sendKeys(content);
-    }
-
-    public void clickElement(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-        element.click();
-    }
-
-    public void checkURL(String pageName) {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        String currentURL = driver.getCurrentUrl();
-        Assert.assertEquals(currentURL, pageName, "The URL is not the same.");
-    }
-    public void checkURLtoBe(String pageName){
-        wait.until(ExpectedConditions.urlToBe(pageName));
-        String actualURL = driver.getCurrentUrl();
-        Assert.assertEquals(actualURL, pageName, "The expected URL to be is not the same.");
-    }
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        super(driver);
         PageFactory.initElements(driver, this);
     }
-
 }
 
 

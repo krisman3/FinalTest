@@ -11,6 +11,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HomePage;
+import pages.LoginPage;
 
 import java.net.URL;
 import java.time.Duration;
@@ -33,6 +34,9 @@ public class LoginTest {
     @Test
     public void loginTest(){
     driver.get(URL);
+//    LoginPage loginPage = new LoginPage(driver);
+//    loginPage.checkURL(URL);
+//    loginPage.clickElement();
     }
 
     @AfterMethod

@@ -11,9 +11,4 @@ import tests.LoginTest;
 import java.time.Duration;
 
 public class HomePage {
-
-
-
-
-
 }

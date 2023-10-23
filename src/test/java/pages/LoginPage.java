@@ -10,37 +10,46 @@ import org.testng.Assert;
 
 import java.time.Duration;
 
-public class LoginPage extends HomePage{
+public class LoginPage {
     private WebDriver driver;
     private WebDriverWait wait;
-    public LoginPage (WebDriver driver) {
+
+    public LoginPage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         PageFactory.initElements(driver, this);
     }
-    @FindBy(css = "[formcontrolname='usernameOrEmail']") private WebElement usernameField;
-    @FindBy(css = "[formcontrolname='password']") private WebElement passwordField;
-    @FindBy(id = "sign-in-button") private WebElement signInBtn;
-    @FindBy(css = "a[href='/users/register']") private WebElement registerBtn;
-    @FindBy(css = "[formcontrolname='rememberMe']") private WebElement rememberMeBtn;
 
-public void waitForVisibility(WebElement element){
-    wait.until(ExpectedConditions.visibilityOf(element));
-}
+    @FindBy(css = "[formcontrolname='usernameOrEmail']")
+    private WebElement usernameField;
+    @FindBy(css = "[formcontrolname='password']")
+    private WebElement passwordField;
+    @FindBy(id = "sign-in-button")
+    private WebElement signInBtn;
+    @FindBy(css = "a[href='/users/register']")
+    private WebElement registerBtn;
+    @FindBy(css = "[formcontrolname='rememberMe']")
+    private WebElement rememberMeBtn;
 
-public void populateField(WebElement element, String content){
-    wait.until(ExpectedConditions.elementToBeClickable(element));
-    element.click();
-    element.sendKeys(content);
-}
-    public void clickElement(WebElement element){
+    public void waitForVisibility(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public void populateField(WebElement element, String content) {
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+        element.click();
+        element.sendKeys(content);
+    }
+
+    public void clickElement(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
         element.click();
     }
-public void checkURL(String pageName){
-    String currentURL = driver.getCurrentUrl();
-    Assert.assertEquals(currentURL, pageName, "The URL is not the same.");
-}
+
+    public void checkURL(String pageName) {
+        String currentURL = driver.getCurrentUrl();
+        Assert.assertEquals(currentURL, pageName, "The URL is not the same.");
+    }
 }
 
 

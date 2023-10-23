@@ -1,0 +1,10 @@
+<suite name="MySuite">
+    <test name="MyTest">
+        <parameter name="username" value="yourUsername" />
+        <parameter name="password" value="yourPassword" />
+        <parameter name="email" value="yourEmail" />
+        <classes>
+            <class name="tests.RegisterTest" />
+        </classes>
+    </test>
+</suite>

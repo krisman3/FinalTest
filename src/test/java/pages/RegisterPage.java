@@ -27,6 +27,8 @@ public class RegisterPage extends BasePage{
     public WebElement invalidEmailMsg;
     @FindBy(css = ".toast-message")
     public WebElement toastMsgFail;
+    @FindBy(xpath = "//span[contains(text(), 'Passwords do not match!')]")
+    public WebElement passwordMismatchText;
 
     public RegisterPage(WebDriver driver) {
         super(driver);

@@ -1,4 +1,13 @@
 <suite name="MySuite">
+    <test name="ScreenshotTest">
+        <classes>
+            <class name="tests.ForcedFailTest">
+                <methods>
+                    <include name="navigateToPage"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
     <test name="RegisterTest">
         <classes>
             <class name="tests.RegisterTests">

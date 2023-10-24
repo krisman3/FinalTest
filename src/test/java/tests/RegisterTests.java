@@ -14,11 +14,7 @@ import pages.RegisterPage;
 
 import java.time.Duration;
 
-public class RegisterTests {
-    WebDriver driver;
-    WebDriverWait wait;
-    WebDriverWait wait1;
-
+public class RegisterTests extends BaseTest {
     @DataProvider(name = "invalidEmails")
     public Object[][] invalidEmails() {
         return new Object[][]{
@@ -42,16 +38,6 @@ public class RegisterTests {
                 {"passw0rd", "passw0r"},
         };
     }
-
-    @BeforeMethod
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait1 = new WebDriverWait(driver, Duration.ofSeconds(10));
-    }
-
     @Parameters({"username", "password", "email"})
     @Test(priority = 2)
     public void usernameExistsTest(String username, String password, String email) {
@@ -131,10 +117,4 @@ public class RegisterTests {
         String warningText = registerPage.passwordMismatchText.getText();
         Assert.assertEquals(warningText, "Passwords do not match!", "There is an issue with the error text for mismatching passwords.");
     }
-
-    @AfterMethod
-    public void cleanUp() {
-        driver.close();
-    }
-
 }

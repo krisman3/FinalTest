@@ -17,19 +17,8 @@ import pages.PageNames;
 import java.time.Duration;
 
 
-public class LoginTests {
-    WebDriver driver;
-    WebDriverWait wait;
-
-
-    @BeforeMethod
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-    }
-@Parameters({"username", "password"})
+public class LoginTests extends BaseTest {
+  @Parameters({"username", "password"})
     @Test
     public void loginTestHappy(String username, String password) {
     System.out.println("////Login test - Happy path ////\n");
@@ -83,8 +72,5 @@ public class LoginTests {
         Assert.assertEquals(errorMsgToast, "UsernameOrEmail cannot be empty", "The toast message is incorrect or did not appear.");
     }
 
-    @AfterMethod
-    public void cleanUp() {
-        driver.close();
-    }
+
 }

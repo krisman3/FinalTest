@@ -16,6 +16,11 @@ public class BasePage {
     WebDriver driver;
     WebDriverWait wait;
 
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+    }
 
     @FindBy(id = "homeIcon")
     public WebElement homeIcon;
@@ -38,12 +43,6 @@ public class BasePage {
         element.click();
     }
 
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-    }
-
     public void populateField(WebElement element, String content) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
         element.click();
@@ -58,5 +57,4 @@ public class BasePage {
     public void waitForVisibility(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
-
 }

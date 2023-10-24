@@ -11,5 +11,6 @@ It has the following tests:
 1. When the player enters an already-existing username.
 2. When the passwords that the user entered do not match.
 3. When the player enters an invalid email address.
+
 3.1. This part actually contains multiple tests inside as there are multiple ways in which the system should warn the user that what he entered is not correct.
 5. One of the test will fail on purpose and a screenshot will be saved of the event in /src/test/java/resources/screenshots
